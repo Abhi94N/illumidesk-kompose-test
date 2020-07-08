@@ -1,0 +1,41 @@
+apiVersion: v1
+data:
+  ANNOUNCEMENT_SERVICE_PORT: "8889"
+  COURSE_ID: intro101
+  DOCKER_GRADER_IMAGE: illumidesk/notebook:grader-76402a27fd13
+  DOCKER_INSTRUCTOR_IMAGE: illumidesk/notebook:instructor-76402a27fd13
+  DOCKER_LEARNER_IMAGE: illumidesk/notebook:learner-76402a27fd13
+  DOCKER_NETWORK_NAME: jupyter-network
+  DOCKER_NOTEBOOK_DIR: /home/jovyan
+  DOCKER_SETUP_COURSE_PORT: "8000"
+  DOCKER_SETUP_COURSE_SERVICE_NAME: setup-course
+  DOCKER_STANDARD_IMAGE: illumidesk/datascience-notebook:base-76402a27fd13
+  EXCHANGE_DIR: /srv/nbgrader/exchange
+  JUPYTERHUB_API_TOKEN: 5ae3c344adb06a7eabad4efbb389060d831e8aad32e579029586442e2fc051ca
+  JUPYTERHUB_API_TOKEN_USER: grader-intro101
+  JUPYTERHUB_API_URL: http://reverse-proxy:8000/hub/api
+  JUPYTERHUB_CRYPT_KEY: 63a450bedeac79c570927fe877d3c3f86c7718d44bce6e10ba0c12671288af58
+  JUPYTERHUB_SERVICE_NAME: jupyterhub
+  LTI_CONSUMER_KEY: ild_test_consumer_key
+  LTI_SHARED_SECRET: ild_test_shared_secret
+  LTI13_AUTHORIZE_URL: https://illumidesk.instructure.com/api/lti/authorize_redirect
+  LTI13_CLIENT_ID: ""
+  LTI13_ENDPOINT: https://illumidesk.instructure.com/api/lti/security/jwks
+  LTI13_PRIVATE_KEY: /secrets/keys/rsa_private.pem
+  LTI13_TOKEN_URL: https://illumidesk.instructure.com/login/oauth2/token
+  MNT_HOME_DIR_GID: "100"
+  MNT_HOME_DIR_UID: "1000"
+  MNT_ROOT: /mnt
+  ORGANIZATION_NAME: my
+  PGDATA: /var/lib/postgresql/data
+  POSTGRES_DB: illumidesk
+  POSTGRES_HOST: jupyterhub-db
+  POSTGRES_PASSWORD: illumidesk
+  POSTGRES_USER: illumidesk
+  PROXY_API_URL: http://reverse-proxy:8099
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: jupyterhub-db-env-jhub
+  name: env-jhub

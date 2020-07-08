@@ -1,0 +1,208 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: Kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: jupyterhub-db
+  name: jupyterhub-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: jupyterhub-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: Kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/jupyter-network: "true"
+        io.kompose.service: jupyterhub-db
+    spec:
+      containers:
+      - env:
+        - name: ANNOUNCEMENT_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: ANNOUNCEMENT_SERVICE_PORT
+              name: env-jhub
+        - name: COURSE_ID
+          valueFrom:
+            configMapKeyRef:
+              key: COURSE_ID
+              name: env-jhub
+        - name: DOCKER_GRADER_IMAGE
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_GRADER_IMAGE
+              name: env-jhub
+        - name: DOCKER_INSTRUCTOR_IMAGE
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_INSTRUCTOR_IMAGE
+              name: env-jhub
+        - name: DOCKER_LEARNER_IMAGE
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_LEARNER_IMAGE
+              name: env-jhub
+        - name: DOCKER_NETWORK_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_NETWORK_NAME
+              name: env-jhub
+        - name: DOCKER_NOTEBOOK_DIR
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_NOTEBOOK_DIR
+              name: env-jhub
+        - name: DOCKER_SETUP_COURSE_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_SETUP_COURSE_PORT
+              name: env-jhub
+        - name: DOCKER_SETUP_COURSE_SERVICE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_SETUP_COURSE_SERVICE_NAME
+              name: env-jhub
+        - name: DOCKER_STANDARD_IMAGE
+          valueFrom:
+            configMapKeyRef:
+              key: DOCKER_STANDARD_IMAGE
+              name: env-jhub
+        - name: EXCHANGE_DIR
+          valueFrom:
+            configMapKeyRef:
+              key: EXCHANGE_DIR
+              name: env-jhub
+        - name: JUPYTERHUB_API_TOKEN
+          valueFrom:
+            configMapKeyRef:
+              key: JUPYTERHUB_API_TOKEN
+              name: env-jhub
+        - name: JUPYTERHUB_API_TOKEN_USER
+          valueFrom:
+            configMapKeyRef:
+              key: JUPYTERHUB_API_TOKEN_USER
+              name: env-jhub
+        - name: JUPYTERHUB_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: JUPYTERHUB_API_URL
+              name: env-jhub
+        - name: JUPYTERHUB_CRYPT_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: JUPYTERHUB_CRYPT_KEY
+              name: env-jhub
+        - name: JUPYTERHUB_SERVICE_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: JUPYTERHUB_SERVICE_NAME
+              name: env-jhub
+        - name: LTI13_AUTHORIZE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: LTI13_AUTHORIZE_URL
+              name: env-jhub
+        - name: LTI13_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              key: LTI13_CLIENT_ID
+              name: env-jhub
+        - name: LTI13_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              key: LTI13_ENDPOINT
+              name: env-jhub
+        - name: LTI13_PRIVATE_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: LTI13_PRIVATE_KEY
+              name: env-jhub
+        - name: LTI13_TOKEN_URL
+          valueFrom:
+            configMapKeyRef:
+              key: LTI13_TOKEN_URL
+              name: env-jhub
+        - name: LTI_CONSUMER_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: LTI_CONSUMER_KEY
+              name: env-jhub
+        - name: LTI_SHARED_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: LTI_SHARED_SECRET
+              name: env-jhub
+        - name: MNT_HOME_DIR_GID
+          valueFrom:
+            configMapKeyRef:
+              key: MNT_HOME_DIR_GID
+              name: env-jhub
+        - name: MNT_HOME_DIR_UID
+          valueFrom:
+            configMapKeyRef:
+              key: MNT_HOME_DIR_UID
+              name: env-jhub
+        - name: MNT_ROOT
+          valueFrom:
+            configMapKeyRef:
+              key: MNT_ROOT
+              name: env-jhub
+        - name: ORGANIZATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: ORGANIZATION_NAME
+              name: env-jhub
+        - name: PGDATA
+          valueFrom:
+            configMapKeyRef:
+              key: PGDATA
+              name: env-jhub
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_DB
+              name: env-jhub
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: env-jhub
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PASSWORD
+              name: env-jhub
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: env-jhub
+        - name: PROXY_API_URL
+          valueFrom:
+            configMapKeyRef:
+              key: PROXY_API_URL
+              name: env-jhub
+        image: postgres:11.6-alpine
+        imagePullPolicy: ""
+        name: jupyterhub-db
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: db
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: db
+        persistentVolumeClaim:
+          claimName: db
+status: {}

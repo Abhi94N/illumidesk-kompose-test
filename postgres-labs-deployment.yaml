@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: Kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgres-labs
+  name: postgres-labs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgres-labs
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: Kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/jupyter-network: "true"
+        io.kompose.service: postgres-labs
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_DB
+          value: labs
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        image: postgres:11.6-alpine
+        imagePullPolicy: ""
+        name: postgres-labs
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: db-labs
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: db-labs
+        persistentVolumeClaim:
+          claimName: db-labs
+status: {}
